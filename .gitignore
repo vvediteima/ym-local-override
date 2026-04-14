@@ -1,0 +1,12 @@
+.venv/
+.runtime/
+build/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+data/uploads/
+data/replacements.json
+
+dist/

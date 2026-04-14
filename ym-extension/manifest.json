@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "YM Local Override",
+  "version": "0.2.44",
+  "description": "Глушит официальный звук Яндекс Музыки и проигрывает локальную замену по track ID.",
+  "permissions": [
+    "debugger",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://music.yandex.ru/*",
+    "https://ym-local-override.invalid/*",
+    "http://127.0.0.1:9876/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://music.yandex.ru/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "page-bridge.js"
+      ],
+      "matches": [
+        "https://music.yandex.ru/*"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "YM Local Override"
+  }
+}

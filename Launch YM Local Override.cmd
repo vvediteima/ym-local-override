@@ -1,0 +1,3 @@
+@echo off
+set ROOT=%~dp0
+powershell -ExecutionPolicy Bypass -Command "Set-Location '%ROOT%'; if (Test-Path '.\\.venv\\Scripts\\pythonw.exe') { Start-Process '.\\.venv\\Scripts\\pythonw.exe' -ArgumentList '-m','app.product_launcher' -WorkingDirectory '%ROOT%' } elseif (Test-Path '.\\.venv\\Scripts\\python.exe') { Start-Process '.\\.venv\\Scripts\\python.exe' -ArgumentList '-m','app.product_launcher' -WorkingDirectory '%ROOT%' } elseif (Test-Path '.\\dist\\YMLocalOverride\\YMLocalOverride.exe') { Start-Process '.\\dist\\YMLocalOverride\\YMLocalOverride.exe' } else { Write-Error 'Neither local Python launcher nor packaged executable was found.'; exit 1 }"
