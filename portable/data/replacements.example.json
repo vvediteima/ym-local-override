@@ -1,0 +1,12 @@
+{
+  "replacements": {
+    "123456789": {
+      "track_id": "123456789",
+      "title": "Example Track",
+      "artist": "Example Artist",
+      "stored_name": "123456789_example.mp3",
+      "original_name": "example.mp3",
+      "content_type": "audio/mpeg"
+    }
+  }
+}

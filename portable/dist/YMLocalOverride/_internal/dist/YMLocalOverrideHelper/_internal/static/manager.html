@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>YM Local Override</title>
+    <style>
+      .button,
+      .source-chip {
+        appearance: none;
+        -webkit-appearance: none;
+        border: 1px solid rgba(29, 27, 23, 0.12);
+        background: #ffffff;
+        color: #1d1b17;
+        padding: 12px 18px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 700;
+        font-family: "Segoe UI", "Inter", sans-serif;
+        line-height: 1.1;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+      }
+
+      .button.button-primary,
+      .source-chip.is-active {
+        border-color: transparent;
+        background: linear-gradient(135deg, #ff6b2c 0%, #ff8f3c 100%);
+        color: #ffffff;
+        box-shadow: 0 10px 24px rgba(255, 107, 44, 0.22);
+      }
+
+      .source-chip:not(.is-active) {
+        background: rgba(255, 255, 255, 0.88);
+      }
+    </style>
+    <link rel="stylesheet" href="/static/manager.css?v=20260414-2" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">YM Local Override</p>
+        <h1>Локальная подмена аудио для Яндекс Музыки</h1>
+        <p class="lede">
+          Официальный плеер Яндекса остается главным, а здесь вы просто выбираете,
+          откуда взять замену для нужного track ID: из локального файла или по прямой ссылке.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://music.yandex.ru/" target="_blank" rel="noreferrer">Открыть Яндекс Музыку</a>
+          <button class="button" id="refresh-button" type="button">Обновить список</button>
+        </div>
+      </section>
+
+      <section class="panel panel-form">
+        <div class="panel-head">
+          <h2>Добавить замену</h2>
+          <p id="prefill-hint"></p>
+        </div>
+
+        <form id="upload-form">
+          <label>
+            <span>Track ID</span>
+            <input id="track-id" name="track_id" type="text" placeholder="Например: 135895303" required />
+          </label>
+          <label>
+            <span>Название трека</span>
+            <input id="track-title" name="title" type="text" placeholder="Необязательно" />
+          </label>
+          <label>
+            <span>Артист</span>
+            <input id="track-artist" name="artist" type="text" placeholder="Необязательно" />
+          </label>
+
+          <div class="source-switch" role="tablist" aria-label="Источник аудио">
+            <button class="source-chip is-active" id="source-file-button" type="button" data-source-mode="file">Файл с компьютера</button>
+            <button class="source-chip" id="source-url-button" type="button" data-source-mode="url">Прямая ссылка</button>
+          </div>
+
+          <div class="source-panel is-active" id="source-panel-file" data-source-panel="file">
+            <label class="file-field">
+              <span>Локальный аудиофайл</span>
+              <input
+                id="track-file"
+                name="file"
+                type="file"
+                accept="audio/*"
+                onchange="document.getElementById('file-picker-name').textContent = this.files && this.files[0] ? this.files[0].name : 'Файл не выбран';"
+              />
+              <div class="file-picker" aria-hidden="true">
+                <span class="file-picker-button">Выбрать файл</span>
+                <span class="file-picker-name" id="file-picker-name">Файл не выбран</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="source-panel" id="source-panel-url" data-source-panel="url">
+            <label>
+              <span>Прямая ссылка на аудиофайл</span>
+              <input
+                id="track-url"
+                name="source_url"
+                type="url"
+                placeholder="https://example.com/track.mp3"
+                inputmode="url"
+              />
+            </label>
+            <p class="source-help">
+              Подходит только прямая ссылка на аудиофайл, который можно скачать без авторизации на стороннем сайте.
+            </p>
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" id="submit-button" type="submit">Сохранить замену</button>
+            <button class="button" id="clear-prefill" type="button">Очистить поля</button>
+          </div>
+          <p class="status" id="form-status"></p>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Активные замены</h2>
+          <p id="count-label">0 записей</p>
+        </div>
+        <div class="replacement-list" id="replacement-list"></div>
+      </section>
+    </main>
+
+    <script src="/static/manager.js?v=20260414-2" defer></script>
+  </body>
+</html>

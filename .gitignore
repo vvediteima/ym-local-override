@@ -10,3 +10,6 @@ data/uploads/
 data/replacements.json
 
 dist/
+
+!portable/
+!portable/**
